@@ -1,0 +1,1102 @@
+
+round 1 without pwm.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000618  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000068c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  0000068c  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000068c  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000006bc  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000068  00000000  00000000  000006f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000aef  00000000  00000000  00000760  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005de  00000000  00000000  0000124f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000009f8  00000000  00000000  0000182d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000b4  00000000  00000000  00002228  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000038c  00000000  00000000  000022dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000002c6  00000000  00000000  00002668  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000058  00000000  00000000  0000292e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a2 36       	cpi	r26, 0x62	; 98
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 61 00 	call	0xc2	; 0xc2 <main>
+  74:	0c 94 0a 03 	jmp	0x614	; 0x614 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <forward>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7c:	c2 9a       	sbi	0x18, 2	; 24
+  7e:	c0 98       	cbi	0x18, 0	; 24
+  80:	c3 9a       	sbi	0x18, 3	; 24
+  82:	c5 98       	cbi	0x18, 5	; 24
+  84:	08 95       	ret
+
+00000086 <backward>:
+  86:	c2 98       	cbi	0x18, 2	; 24
+  88:	c0 9a       	sbi	0x18, 0	; 24
+  8a:	c3 98       	cbi	0x18, 3	; 24
+  8c:	c5 9a       	sbi	0x18, 5	; 24
+  8e:	08 95       	ret
+
+00000090 <stop>:
+  90:	c2 98       	cbi	0x18, 2	; 24
+  92:	c0 98       	cbi	0x18, 0	; 24
+  94:	c3 98       	cbi	0x18, 3	; 24
+  96:	c5 98       	cbi	0x18, 5	; 24
+  98:	08 95       	ret
+
+0000009a <hard_right>:
+  9a:	c2 9a       	sbi	0x18, 2	; 24
+  9c:	c0 98       	cbi	0x18, 0	; 24
+  9e:	c3 98       	cbi	0x18, 3	; 24
+  a0:	c5 9a       	sbi	0x18, 5	; 24
+  a2:	08 95       	ret
+
+000000a4 <hard_left>:
+  a4:	c2 9a       	sbi	0x18, 2	; 24
+  a6:	c0 98       	cbi	0x18, 0	; 24
+  a8:	c3 9a       	sbi	0x18, 3	; 24
+  aa:	c5 98       	cbi	0x18, 5	; 24
+  ac:	08 95       	ret
+
+000000ae <right>:
+  ae:	c2 9a       	sbi	0x18, 2	; 24
+  b0:	c0 98       	cbi	0x18, 0	; 24
+  b2:	c3 9a       	sbi	0x18, 3	; 24
+  b4:	c5 98       	cbi	0x18, 5	; 24
+  b6:	08 95       	ret
+
+000000b8 <left>:
+  b8:	c2 9a       	sbi	0x18, 2	; 24
+  ba:	c0 98       	cbi	0x18, 0	; 24
+  bc:	c3 9a       	sbi	0x18, 3	; 24
+  be:	c5 98       	cbi	0x18, 5	; 24
+  c0:	08 95       	ret
+
+000000c2 <main>:
+	PORTB=PORTB|(1<<PINB5);//m2 +
+	_delay_ms(50);
+}
+int main(void)
+{
+	DDRA=0b00000000;
+  c2:	1a ba       	out	0x1a, r1	; 26
+	PORTA=0;
+  c4:	1b ba       	out	0x1b, r1	; 27
+	DDRB=0b00101101;
+  c6:	8d e2       	ldi	r24, 0x2D	; 45
+  c8:	87 bb       	out	0x17, r24	; 23
+	PORTB=0;
+  ca:	18 ba       	out	0x18, r1	; 24
+		a=4;
+	}
+	
+	else if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+	{
+		if((a==2)|(a==4))
+  cc:	c1 e0       	ldi	r28, 0x01	; 1
+		{
+			right();
+		}
+		if((a==3)|(a==5))
+  ce:	d0 e0       	ldi	r29, 0x00	; 0
+
+
+	else if(bit_is_clear(PINA,0))
+	{
+		hard_left();
+		a=4;
+  d0:	68 94       	set
+  d2:	88 24       	eor	r8, r8
+  d4:	82 f8       	bld	r8, 2
+  d6:	91 2c       	mov	r9, r1
+	}
+
+	else if(bit_is_clear(PINA,2))
+	{
+		left();
+		a=2;
+  d8:	68 94       	set
+  da:	aa 24       	eor	r10, r10
+  dc:	a1 f8       	bld	r10, 1
+  de:	b1 2c       	mov	r11, r1
+	}
+
+	else if(bit_is_clear(PINA,4))
+	{
+		forward();
+		a=1;
+  e0:	ee 24       	eor	r14, r14
+  e2:	e3 94       	inc	r14
+  e4:	f1 2c       	mov	r15, r1
+	}
+
+	else if(bit_is_clear(PINA,5))
+	{
+		right();
+		a=3;
+  e6:	0f 2e       	mov	r0, r31
+  e8:	f3 e0       	ldi	r31, 0x03	; 3
+  ea:	cf 2e       	mov	r12, r31
+  ec:	d1 2c       	mov	r13, r1
+  ee:	f0 2d       	mov	r31, r0
+	}
+
+	else if(bit_is_clear(PINA,7))
+	{
+		hard_right();
+		a=5;
+  f0:	05 e0       	ldi	r16, 0x05	; 5
+  f2:	10 e0       	ldi	r17, 0x00	; 0
+	PORTB=0;
+	while (1)
+	{
+		
+	//sab band tb forward
+	if(bit_is_clear(PINA,0)&&bit_is_clear(PINA,1)&&bit_is_clear(PINA,2)&&bit_is_clear(PINA,3)&&bit_is_clear(PINA,4)&&bit_is_clear(PINA,5)&&bit_is_clear(PINA,6)&&bit_is_clear(PINA,7))
+  f4:	c8 99       	sbic	0x19, 0	; 25
+  f6:	11 c0       	rjmp	.+34     	; 0x11a <main+0x58>
+  f8:	c9 99       	sbic	0x19, 1	; 25
+  fa:	0f c0       	rjmp	.+30     	; 0x11a <main+0x58>
+  fc:	ca 99       	sbic	0x19, 2	; 25
+  fe:	0d c0       	rjmp	.+26     	; 0x11a <main+0x58>
+ 100:	cb 99       	sbic	0x19, 3	; 25
+ 102:	0b c0       	rjmp	.+22     	; 0x11a <main+0x58>
+ 104:	cc 99       	sbic	0x19, 4	; 25
+ 106:	09 c0       	rjmp	.+18     	; 0x11a <main+0x58>
+ 108:	cd 99       	sbic	0x19, 5	; 25
+ 10a:	07 c0       	rjmp	.+14     	; 0x11a <main+0x58>
+ 10c:	ce 99       	sbic	0x19, 6	; 25
+ 10e:	05 c0       	rjmp	.+10     	; 0x11a <main+0x58>
+ 110:	cf 99       	sbic	0x19, 7	; 25
+ 112:	03 c0       	rjmp	.+6      	; 0x11a <main+0x58>
+	{
+		forward();
+ 114:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 118:	ed cf       	rjmp	.-38     	; 0xf4 <main+0x32>
+	}
+	
+	
+	//code 4
+	else if(bit_is_clear(PINA,4)&&bit_is_clear(PINA,5)&&bit_is_clear(PINA,6)&&bit_is_clear(PINA,7))
+ 11a:	cc 99       	sbic	0x19, 4	; 25
+ 11c:	4a c0       	rjmp	.+148    	; 0x1b2 <main+0xf0>
+ 11e:	cd 99       	sbic	0x19, 5	; 25
+ 120:	48 c0       	rjmp	.+144    	; 0x1b2 <main+0xf0>
+ 122:	ce 99       	sbic	0x19, 6	; 25
+ 124:	46 c0       	rjmp	.+140    	; 0x1b2 <main+0xf0>
+ 126:	cf 99       	sbic	0x19, 7	; 25
+ 128:	44 c0       	rjmp	.+136    	; 0x1b2 <main+0xf0>
+	{
+				forward();
+ 12a:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 12e:	87 ec       	ldi	r24, 0xC7	; 199
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	01 97       	sbiw	r24, 0x01	; 1
+ 134:	f1 f7       	brne	.-4      	; 0x132 <main+0x70>
+ 136:	00 c0       	rjmp	.+0      	; 0x138 <main+0x76>
+ 138:	00 00       	nop
+				_delay_us(100);
+				stop();
+ 13a:	0e 94 48 00 	call	0x90	; 0x90 <stop>
+		if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+ 13e:	c8 9b       	sbis	0x19, 0	; 25
+ 140:	11 c0       	rjmp	.+34     	; 0x164 <main+0xa2>
+ 142:	c9 9b       	sbis	0x19, 1	; 25
+ 144:	0f c0       	rjmp	.+30     	; 0x164 <main+0xa2>
+ 146:	ca 9b       	sbis	0x19, 2	; 25
+ 148:	0d c0       	rjmp	.+26     	; 0x164 <main+0xa2>
+ 14a:	cb 9b       	sbis	0x19, 3	; 25
+ 14c:	0b c0       	rjmp	.+22     	; 0x164 <main+0xa2>
+ 14e:	cc 9b       	sbis	0x19, 4	; 25
+ 150:	09 c0       	rjmp	.+18     	; 0x164 <main+0xa2>
+ 152:	cd 9b       	sbis	0x19, 5	; 25
+ 154:	07 c0       	rjmp	.+14     	; 0x164 <main+0xa2>
+ 156:	ce 9b       	sbis	0x19, 6	; 25
+ 158:	05 c0       	rjmp	.+10     	; 0x164 <main+0xa2>
+ 15a:	cf 9b       	sbis	0x19, 7	; 25
+ 15c:	03 c0       	rjmp	.+6      	; 0x164 <main+0xa2>
+		{
+			hard_right();
+ 15e:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+ 162:	1d c0       	rjmp	.+58     	; 0x19e <main+0xdc>
+		}
+
+		 else if(bit_is_clear(PINA,2)|bit_is_clear(PINA,3)|bit_is_clear(PINA,4)|bit_is_clear(PINA,5))
+ 164:	89 b3       	in	r24, 0x19	; 25
+ 166:	29 b3       	in	r18, 0x19	; 25
+ 168:	99 b3       	in	r25, 0x19	; 25
+ 16a:	49 b3       	in	r20, 0x19	; 25
+ 16c:	82 fb       	bst	r24, 2
+ 16e:	88 27       	eor	r24, r24
+ 170:	80 f9       	bld	r24, 0
+ 172:	38 2f       	mov	r19, r24
+ 174:	3c 27       	eor	r19, r28
+ 176:	23 fb       	bst	r18, 3
+ 178:	88 27       	eor	r24, r24
+ 17a:	80 f9       	bld	r24, 0
+ 17c:	8c 27       	eor	r24, r28
+ 17e:	83 2b       	or	r24, r19
+ 180:	92 95       	swap	r25
+ 182:	91 70       	andi	r25, 0x01	; 1
+ 184:	9c 27       	eor	r25, r28
+ 186:	89 2b       	or	r24, r25
+ 188:	29 f4       	brne	.+10     	; 0x194 <main+0xd2>
+ 18a:	45 fb       	bst	r20, 5
+ 18c:	44 27       	eor	r20, r20
+ 18e:	40 f9       	bld	r20, 0
+ 190:	4c 17       	cp	r20, r28
+ 192:	19 f0       	breq	.+6      	; 0x19a <main+0xd8>
+		{
+			forward();
+ 194:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 198:	02 c0       	rjmp	.+4      	; 0x19e <main+0xdc>
+		}
+	
+		else
+		{
+			hard_right();
+ 19a:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 19e:	9f ef       	ldi	r25, 0xFF	; 255
+ 1a0:	20 e7       	ldi	r18, 0x70	; 112
+ 1a2:	82 e0       	ldi	r24, 0x02	; 2
+ 1a4:	91 50       	subi	r25, 0x01	; 1
+ 1a6:	20 40       	sbci	r18, 0x00	; 0
+ 1a8:	80 40       	sbci	r24, 0x00	; 0
+ 1aa:	e1 f7       	brne	.-8      	; 0x1a4 <main+0xe2>
+ 1ac:	00 c0       	rjmp	.+0      	; 0x1ae <main+0xec>
+ 1ae:	00 00       	nop
+ 1b0:	a1 cf       	rjmp	.-190    	; 0xf4 <main+0x32>
+		}
+		_delay_ms(100);
+	}
+	else if(bit_is_clear(PINA,3)&&bit_is_clear(PINA,4)&&bit_is_clear(PINA,5)&&bit_is_clear(PINA,6))
+ 1b2:	cb 99       	sbic	0x19, 3	; 25
+ 1b4:	4a c0       	rjmp	.+148    	; 0x24a <main+0x188>
+ 1b6:	cc 99       	sbic	0x19, 4	; 25
+ 1b8:	48 c0       	rjmp	.+144    	; 0x24a <main+0x188>
+ 1ba:	cd 99       	sbic	0x19, 5	; 25
+ 1bc:	46 c0       	rjmp	.+140    	; 0x24a <main+0x188>
+ 1be:	ce 99       	sbic	0x19, 6	; 25
+ 1c0:	44 c0       	rjmp	.+136    	; 0x24a <main+0x188>
+	{
+				forward();
+ 1c2:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1c6:	87 ec       	ldi	r24, 0xC7	; 199
+ 1c8:	90 e0       	ldi	r25, 0x00	; 0
+ 1ca:	01 97       	sbiw	r24, 0x01	; 1
+ 1cc:	f1 f7       	brne	.-4      	; 0x1ca <main+0x108>
+ 1ce:	00 c0       	rjmp	.+0      	; 0x1d0 <main+0x10e>
+ 1d0:	00 00       	nop
+				_delay_us(100);
+				stop();
+ 1d2:	0e 94 48 00 	call	0x90	; 0x90 <stop>
+		if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+ 1d6:	c8 9b       	sbis	0x19, 0	; 25
+ 1d8:	11 c0       	rjmp	.+34     	; 0x1fc <main+0x13a>
+ 1da:	c9 9b       	sbis	0x19, 1	; 25
+ 1dc:	0f c0       	rjmp	.+30     	; 0x1fc <main+0x13a>
+ 1de:	ca 9b       	sbis	0x19, 2	; 25
+ 1e0:	0d c0       	rjmp	.+26     	; 0x1fc <main+0x13a>
+ 1e2:	cb 9b       	sbis	0x19, 3	; 25
+ 1e4:	0b c0       	rjmp	.+22     	; 0x1fc <main+0x13a>
+ 1e6:	cc 9b       	sbis	0x19, 4	; 25
+ 1e8:	09 c0       	rjmp	.+18     	; 0x1fc <main+0x13a>
+ 1ea:	cd 9b       	sbis	0x19, 5	; 25
+ 1ec:	07 c0       	rjmp	.+14     	; 0x1fc <main+0x13a>
+ 1ee:	ce 9b       	sbis	0x19, 6	; 25
+ 1f0:	05 c0       	rjmp	.+10     	; 0x1fc <main+0x13a>
+ 1f2:	cf 9b       	sbis	0x19, 7	; 25
+ 1f4:	03 c0       	rjmp	.+6      	; 0x1fc <main+0x13a>
+		{
+			hard_right();
+ 1f6:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+ 1fa:	1d c0       	rjmp	.+58     	; 0x236 <main+0x174>
+		}
+		else if(bit_is_clear(PINA,2)|bit_is_clear(PINA,3)|bit_is_clear(PINA,4)|bit_is_clear(PINA,5))
+ 1fc:	89 b3       	in	r24, 0x19	; 25
+ 1fe:	29 b3       	in	r18, 0x19	; 25
+ 200:	99 b3       	in	r25, 0x19	; 25
+ 202:	49 b3       	in	r20, 0x19	; 25
+ 204:	82 fb       	bst	r24, 2
+ 206:	88 27       	eor	r24, r24
+ 208:	80 f9       	bld	r24, 0
+ 20a:	38 2f       	mov	r19, r24
+ 20c:	3c 27       	eor	r19, r28
+ 20e:	23 fb       	bst	r18, 3
+ 210:	88 27       	eor	r24, r24
+ 212:	80 f9       	bld	r24, 0
+ 214:	8c 27       	eor	r24, r28
+ 216:	83 2b       	or	r24, r19
+ 218:	92 95       	swap	r25
+ 21a:	91 70       	andi	r25, 0x01	; 1
+ 21c:	9c 27       	eor	r25, r28
+ 21e:	89 2b       	or	r24, r25
+ 220:	29 f4       	brne	.+10     	; 0x22c <main+0x16a>
+ 222:	45 fb       	bst	r20, 5
+ 224:	44 27       	eor	r20, r20
+ 226:	40 f9       	bld	r20, 0
+ 228:	4c 17       	cp	r20, r28
+ 22a:	19 f0       	breq	.+6      	; 0x232 <main+0x170>
+		{
+			forward();
+ 22c:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 230:	02 c0       	rjmp	.+4      	; 0x236 <main+0x174>
+		}
+
+		else
+		{
+			hard_right();
+ 232:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 236:	9f ef       	ldi	r25, 0xFF	; 255
+ 238:	20 e7       	ldi	r18, 0x70	; 112
+ 23a:	82 e0       	ldi	r24, 0x02	; 2
+ 23c:	91 50       	subi	r25, 0x01	; 1
+ 23e:	20 40       	sbci	r18, 0x00	; 0
+ 240:	80 40       	sbci	r24, 0x00	; 0
+ 242:	e1 f7       	brne	.-8      	; 0x23c <main+0x17a>
+ 244:	00 c0       	rjmp	.+0      	; 0x246 <main+0x184>
+ 246:	00 00       	nop
+ 248:	55 cf       	rjmp	.-342    	; 0xf4 <main+0x32>
+		}
+		_delay_ms(100);
+	}
+
+	else if(bit_is_clear(PINA,2)&&bit_is_clear(PINA,3)&&bit_is_clear(PINA,4)&&bit_is_clear(PINA,5))
+ 24a:	ca 99       	sbic	0x19, 2	; 25
+ 24c:	0d c0       	rjmp	.+26     	; 0x268 <main+0x1a6>
+ 24e:	cb 99       	sbic	0x19, 3	; 25
+ 250:	0b c0       	rjmp	.+22     	; 0x268 <main+0x1a6>
+ 252:	cc 99       	sbic	0x19, 4	; 25
+ 254:	09 c0       	rjmp	.+18     	; 0x268 <main+0x1a6>
+ 256:	cd 99       	sbic	0x19, 5	; 25
+ 258:	07 c0       	rjmp	.+14     	; 0x268 <main+0x1a6>
+	{
+		forward();
+ 25a:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 25e:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 262:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 266:	46 cf       	rjmp	.-372    	; 0xf4 <main+0x32>
+	}
+	
+	else if(bit_is_clear(PINA,0)&&bit_is_clear(PINA,1)&&bit_is_clear(PINA,2)&&bit_is_clear(PINA,3))
+ 268:	c8 99       	sbic	0x19, 0	; 25
+ 26a:	4a c0       	rjmp	.+148    	; 0x300 <main+0x23e>
+ 26c:	c9 99       	sbic	0x19, 1	; 25
+ 26e:	48 c0       	rjmp	.+144    	; 0x300 <main+0x23e>
+ 270:	ca 99       	sbic	0x19, 2	; 25
+ 272:	46 c0       	rjmp	.+140    	; 0x300 <main+0x23e>
+ 274:	cb 99       	sbic	0x19, 3	; 25
+ 276:	44 c0       	rjmp	.+136    	; 0x300 <main+0x23e>
+	{
+				forward();
+ 278:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 27c:	87 ec       	ldi	r24, 0xC7	; 199
+ 27e:	90 e0       	ldi	r25, 0x00	; 0
+ 280:	01 97       	sbiw	r24, 0x01	; 1
+ 282:	f1 f7       	brne	.-4      	; 0x280 <main+0x1be>
+ 284:	00 c0       	rjmp	.+0      	; 0x286 <main+0x1c4>
+ 286:	00 00       	nop
+				_delay_us(100);
+				stop();
+ 288:	0e 94 48 00 	call	0x90	; 0x90 <stop>
+				
+		if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+ 28c:	c8 9b       	sbis	0x19, 0	; 25
+ 28e:	11 c0       	rjmp	.+34     	; 0x2b2 <main+0x1f0>
+ 290:	c9 9b       	sbis	0x19, 1	; 25
+ 292:	0f c0       	rjmp	.+30     	; 0x2b2 <main+0x1f0>
+ 294:	ca 9b       	sbis	0x19, 2	; 25
+ 296:	0d c0       	rjmp	.+26     	; 0x2b2 <main+0x1f0>
+ 298:	cb 9b       	sbis	0x19, 3	; 25
+ 29a:	0b c0       	rjmp	.+22     	; 0x2b2 <main+0x1f0>
+ 29c:	cc 9b       	sbis	0x19, 4	; 25
+ 29e:	09 c0       	rjmp	.+18     	; 0x2b2 <main+0x1f0>
+ 2a0:	cd 9b       	sbis	0x19, 5	; 25
+ 2a2:	07 c0       	rjmp	.+14     	; 0x2b2 <main+0x1f0>
+ 2a4:	ce 9b       	sbis	0x19, 6	; 25
+ 2a6:	05 c0       	rjmp	.+10     	; 0x2b2 <main+0x1f0>
+ 2a8:	cf 9b       	sbis	0x19, 7	; 25
+ 2aa:	03 c0       	rjmp	.+6      	; 0x2b2 <main+0x1f0>
+		{
+			hard_left();
+ 2ac:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+ 2b0:	1d c0       	rjmp	.+58     	; 0x2ec <main+0x22a>
+		}		
+		 else if(bit_is_clear(PINA,2)|bit_is_clear(PINA,3)|bit_is_clear(PINA,4)|bit_is_clear(PINA,5))
+ 2b2:	89 b3       	in	r24, 0x19	; 25
+ 2b4:	29 b3       	in	r18, 0x19	; 25
+ 2b6:	99 b3       	in	r25, 0x19	; 25
+ 2b8:	49 b3       	in	r20, 0x19	; 25
+ 2ba:	82 fb       	bst	r24, 2
+ 2bc:	88 27       	eor	r24, r24
+ 2be:	80 f9       	bld	r24, 0
+ 2c0:	38 2f       	mov	r19, r24
+ 2c2:	3c 27       	eor	r19, r28
+ 2c4:	23 fb       	bst	r18, 3
+ 2c6:	88 27       	eor	r24, r24
+ 2c8:	80 f9       	bld	r24, 0
+ 2ca:	8c 27       	eor	r24, r28
+ 2cc:	83 2b       	or	r24, r19
+ 2ce:	92 95       	swap	r25
+ 2d0:	91 70       	andi	r25, 0x01	; 1
+ 2d2:	9c 27       	eor	r25, r28
+ 2d4:	89 2b       	or	r24, r25
+ 2d6:	29 f4       	brne	.+10     	; 0x2e2 <main+0x220>
+ 2d8:	45 fb       	bst	r20, 5
+ 2da:	44 27       	eor	r20, r20
+ 2dc:	40 f9       	bld	r20, 0
+ 2de:	4c 17       	cp	r20, r28
+ 2e0:	19 f0       	breq	.+6      	; 0x2e8 <main+0x226>
+		{
+			forward();
+ 2e2:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 2e6:	02 c0       	rjmp	.+4      	; 0x2ec <main+0x22a>
+		}
+		
+
+		else
+		{
+			hard_left();
+ 2e8:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 2ec:	9f ef       	ldi	r25, 0xFF	; 255
+ 2ee:	20 e7       	ldi	r18, 0x70	; 112
+ 2f0:	82 e0       	ldi	r24, 0x02	; 2
+ 2f2:	91 50       	subi	r25, 0x01	; 1
+ 2f4:	20 40       	sbci	r18, 0x00	; 0
+ 2f6:	80 40       	sbci	r24, 0x00	; 0
+ 2f8:	e1 f7       	brne	.-8      	; 0x2f2 <main+0x230>
+ 2fa:	00 c0       	rjmp	.+0      	; 0x2fc <main+0x23a>
+ 2fc:	00 00       	nop
+ 2fe:	fa ce       	rjmp	.-524    	; 0xf4 <main+0x32>
+		}
+		_delay_ms(100);
+	}
+	else if(bit_is_clear(PINA,1)&&bit_is_clear(PINA,2)&&bit_is_clear(PINA,3)&&bit_is_clear(PINA,4))
+ 300:	c9 99       	sbic	0x19, 1	; 25
+ 302:	4a c0       	rjmp	.+148    	; 0x398 <main+0x2d6>
+ 304:	ca 99       	sbic	0x19, 2	; 25
+ 306:	48 c0       	rjmp	.+144    	; 0x398 <main+0x2d6>
+ 308:	cb 99       	sbic	0x19, 3	; 25
+ 30a:	46 c0       	rjmp	.+140    	; 0x398 <main+0x2d6>
+ 30c:	cc 99       	sbic	0x19, 4	; 25
+ 30e:	44 c0       	rjmp	.+136    	; 0x398 <main+0x2d6>
+	{
+				forward();
+ 310:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 314:	87 ec       	ldi	r24, 0xC7	; 199
+ 316:	90 e0       	ldi	r25, 0x00	; 0
+ 318:	01 97       	sbiw	r24, 0x01	; 1
+ 31a:	f1 f7       	brne	.-4      	; 0x318 <main+0x256>
+ 31c:	00 c0       	rjmp	.+0      	; 0x31e <main+0x25c>
+ 31e:	00 00       	nop
+				_delay_us(100);
+				stop();
+ 320:	0e 94 48 00 	call	0x90	; 0x90 <stop>
+				
+		if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+ 324:	c8 9b       	sbis	0x19, 0	; 25
+ 326:	11 c0       	rjmp	.+34     	; 0x34a <main+0x288>
+ 328:	c9 9b       	sbis	0x19, 1	; 25
+ 32a:	0f c0       	rjmp	.+30     	; 0x34a <main+0x288>
+ 32c:	ca 9b       	sbis	0x19, 2	; 25
+ 32e:	0d c0       	rjmp	.+26     	; 0x34a <main+0x288>
+ 330:	cb 9b       	sbis	0x19, 3	; 25
+ 332:	0b c0       	rjmp	.+22     	; 0x34a <main+0x288>
+ 334:	cc 9b       	sbis	0x19, 4	; 25
+ 336:	09 c0       	rjmp	.+18     	; 0x34a <main+0x288>
+ 338:	cd 9b       	sbis	0x19, 5	; 25
+ 33a:	07 c0       	rjmp	.+14     	; 0x34a <main+0x288>
+ 33c:	ce 9b       	sbis	0x19, 6	; 25
+ 33e:	05 c0       	rjmp	.+10     	; 0x34a <main+0x288>
+ 340:	cf 9b       	sbis	0x19, 7	; 25
+ 342:	03 c0       	rjmp	.+6      	; 0x34a <main+0x288>
+		{
+			hard_left();
+ 344:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+ 348:	1d c0       	rjmp	.+58     	; 0x384 <main+0x2c2>
+		}
+		else if(bit_is_clear(PINA,2)|bit_is_clear(PINA,3)|bit_is_clear(PINA,4)|bit_is_clear(PINA,5))
+ 34a:	89 b3       	in	r24, 0x19	; 25
+ 34c:	29 b3       	in	r18, 0x19	; 25
+ 34e:	99 b3       	in	r25, 0x19	; 25
+ 350:	49 b3       	in	r20, 0x19	; 25
+ 352:	82 fb       	bst	r24, 2
+ 354:	88 27       	eor	r24, r24
+ 356:	80 f9       	bld	r24, 0
+ 358:	38 2f       	mov	r19, r24
+ 35a:	3c 27       	eor	r19, r28
+ 35c:	23 fb       	bst	r18, 3
+ 35e:	88 27       	eor	r24, r24
+ 360:	80 f9       	bld	r24, 0
+ 362:	8c 27       	eor	r24, r28
+ 364:	83 2b       	or	r24, r19
+ 366:	92 95       	swap	r25
+ 368:	91 70       	andi	r25, 0x01	; 1
+ 36a:	9c 27       	eor	r25, r28
+ 36c:	89 2b       	or	r24, r25
+ 36e:	29 f4       	brne	.+10     	; 0x37a <main+0x2b8>
+ 370:	45 fb       	bst	r20, 5
+ 372:	44 27       	eor	r20, r20
+ 374:	40 f9       	bld	r20, 0
+ 376:	4c 17       	cp	r20, r28
+ 378:	19 f0       	breq	.+6      	; 0x380 <main+0x2be>
+		{
+			forward();
+ 37a:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 37e:	02 c0       	rjmp	.+4      	; 0x384 <main+0x2c2>
+		}
+		else
+		{
+			hard_left();
+ 380:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 384:	9f ef       	ldi	r25, 0xFF	; 255
+ 386:	20 e7       	ldi	r18, 0x70	; 112
+ 388:	82 e0       	ldi	r24, 0x02	; 2
+ 38a:	91 50       	subi	r25, 0x01	; 1
+ 38c:	20 40       	sbci	r18, 0x00	; 0
+ 38e:	80 40       	sbci	r24, 0x00	; 0
+ 390:	e1 f7       	brne	.-8      	; 0x38a <main+0x2c8>
+ 392:	00 c0       	rjmp	.+0      	; 0x394 <main+0x2d2>
+ 394:	00 00       	nop
+ 396:	ae ce       	rjmp	.-676    	; 0xf4 <main+0x32>
+	}
+	
+
+	//code for 3
+
+	else if(bit_is_clear(PINA,5)&&bit_is_clear(PINA,6)&&bit_is_clear(PINA,7))
+ 398:	cd 99       	sbic	0x19, 5	; 25
+ 39a:	0b c0       	rjmp	.+22     	; 0x3b2 <main+0x2f0>
+ 39c:	ce 99       	sbic	0x19, 6	; 25
+ 39e:	09 c0       	rjmp	.+18     	; 0x3b2 <main+0x2f0>
+ 3a0:	cf 99       	sbic	0x19, 7	; 25
+ 3a2:	07 c0       	rjmp	.+14     	; 0x3b2 <main+0x2f0>
+	{
+		hard_right();
+ 3a4:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+		a=5;
+ 3a8:	10 93 61 00 	sts	0x0061, r17	; 0x800061 <_edata+0x1>
+ 3ac:	00 93 60 00 	sts	0x0060, r16	; 0x800060 <_edata>
+ 3b0:	a1 ce       	rjmp	.-702    	; 0xf4 <main+0x32>
+	}
+	
+	else if(bit_is_clear(PINA,4)&&bit_is_clear(PINA,5)&&bit_is_clear(PINA,6))
+ 3b2:	cc 99       	sbic	0x19, 4	; 25
+ 3b4:	0b c0       	rjmp	.+22     	; 0x3cc <main+0x30a>
+ 3b6:	cd 99       	sbic	0x19, 5	; 25
+ 3b8:	09 c0       	rjmp	.+18     	; 0x3cc <main+0x30a>
+ 3ba:	ce 99       	sbic	0x19, 6	; 25
+ 3bc:	07 c0       	rjmp	.+14     	; 0x3cc <main+0x30a>
+	{
+		right();
+ 3be:	0e 94 57 00 	call	0xae	; 0xae <right>
+		a=3;
+ 3c2:	d0 92 61 00 	sts	0x0061, r13	; 0x800061 <_edata+0x1>
+ 3c6:	c0 92 60 00 	sts	0x0060, r12	; 0x800060 <_edata>
+ 3ca:	94 ce       	rjmp	.-728    	; 0xf4 <main+0x32>
+	}
+	
+	else if(bit_is_clear(PINA,2)&&bit_is_clear(PINA,3)&&bit_is_clear(PINA,4))
+ 3cc:	ca 99       	sbic	0x19, 2	; 25
+ 3ce:	0b c0       	rjmp	.+22     	; 0x3e6 <main+0x324>
+ 3d0:	cb 99       	sbic	0x19, 3	; 25
+ 3d2:	09 c0       	rjmp	.+18     	; 0x3e6 <main+0x324>
+ 3d4:	cc 99       	sbic	0x19, 4	; 25
+ 3d6:	07 c0       	rjmp	.+14     	; 0x3e6 <main+0x324>
+	{
+		forward();
+ 3d8:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 3dc:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 3e0:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 3e4:	87 ce       	rjmp	.-754    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,3)&&bit_is_clear(PINA,4)&&bit_is_clear(PINA,5))
+ 3e6:	cb 99       	sbic	0x19, 3	; 25
+ 3e8:	0b c0       	rjmp	.+22     	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3ea:	cc 99       	sbic	0x19, 4	; 25
+ 3ec:	09 c0       	rjmp	.+18     	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3ee:	cd 99       	sbic	0x19, 5	; 25
+ 3f0:	07 c0       	rjmp	.+14     	; 0x400 <__LOCK_REGION_LENGTH__>
+	{
+		forward();
+ 3f2:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 3f6:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 3fa:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 3fe:	7a ce       	rjmp	.-780    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,1)&&bit_is_clear(PINA,2)&&bit_is_clear(PINA,3))
+ 400:	c9 99       	sbic	0x19, 1	; 25
+ 402:	0b c0       	rjmp	.+22     	; 0x41a <__LOCK_REGION_LENGTH__+0x1a>
+ 404:	ca 99       	sbic	0x19, 2	; 25
+ 406:	09 c0       	rjmp	.+18     	; 0x41a <__LOCK_REGION_LENGTH__+0x1a>
+ 408:	cb 99       	sbic	0x19, 3	; 25
+ 40a:	07 c0       	rjmp	.+14     	; 0x41a <__LOCK_REGION_LENGTH__+0x1a>
+	{
+		left();
+ 40c:	0e 94 5c 00 	call	0xb8	; 0xb8 <left>
+		a=2;
+ 410:	b0 92 61 00 	sts	0x0061, r11	; 0x800061 <_edata+0x1>
+ 414:	a0 92 60 00 	sts	0x0060, r10	; 0x800060 <_edata>
+ 418:	6d ce       	rjmp	.-806    	; 0xf4 <main+0x32>
+	}
+
+	
+
+	else if(bit_is_clear(PINA,0)&&bit_is_clear(PINA,1)&&bit_is_clear(PINA,2))
+ 41a:	c8 99       	sbic	0x19, 0	; 25
+ 41c:	0b c0       	rjmp	.+22     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+ 41e:	c9 99       	sbic	0x19, 1	; 25
+ 420:	09 c0       	rjmp	.+18     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+ 422:	ca 99       	sbic	0x19, 2	; 25
+ 424:	07 c0       	rjmp	.+14     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+	{
+		hard_left();
+ 426:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+		a=4;
+ 42a:	90 92 61 00 	sts	0x0061, r9	; 0x800061 <_edata+0x1>
+ 42e:	80 92 60 00 	sts	0x0060, r8	; 0x800060 <_edata>
+ 432:	60 ce       	rjmp	.-832    	; 0xf4 <main+0x32>
+	}
+
+
+	//code for 2
+
+	else if(bit_is_clear(PINA,6)&&bit_is_clear(PINA,7))
+ 434:	ce 99       	sbic	0x19, 6	; 25
+ 436:	09 c0       	rjmp	.+18     	; 0x44a <__LOCK_REGION_LENGTH__+0x4a>
+ 438:	cf 99       	sbic	0x19, 7	; 25
+ 43a:	07 c0       	rjmp	.+14     	; 0x44a <__LOCK_REGION_LENGTH__+0x4a>
+	{
+		hard_right();
+ 43c:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+		a=5;
+ 440:	10 93 61 00 	sts	0x0061, r17	; 0x800061 <_edata+0x1>
+ 444:	00 93 60 00 	sts	0x0060, r16	; 0x800060 <_edata>
+ 448:	55 ce       	rjmp	.-854    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,5)&&bit_is_clear(PINA,6))
+ 44a:	cd 99       	sbic	0x19, 5	; 25
+ 44c:	09 c0       	rjmp	.+18     	; 0x460 <__LOCK_REGION_LENGTH__+0x60>
+ 44e:	ce 99       	sbic	0x19, 6	; 25
+ 450:	07 c0       	rjmp	.+14     	; 0x460 <__LOCK_REGION_LENGTH__+0x60>
+	{
+		right();
+ 452:	0e 94 57 00 	call	0xae	; 0xae <right>
+		a=3;
+ 456:	d0 92 61 00 	sts	0x0061, r13	; 0x800061 <_edata+0x1>
+ 45a:	c0 92 60 00 	sts	0x0060, r12	; 0x800060 <_edata>
+ 45e:	4a ce       	rjmp	.-876    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,2)&&bit_is_clear(PINA,3))
+ 460:	ca 99       	sbic	0x19, 2	; 25
+ 462:	09 c0       	rjmp	.+18     	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
+ 464:	cb 99       	sbic	0x19, 3	; 25
+ 466:	07 c0       	rjmp	.+14     	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
+	{
+		forward();
+ 468:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 46c:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 470:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 474:	3f ce       	rjmp	.-898    	; 0xf4 <main+0x32>
+	}
+	
+	else if(bit_is_clear(PINA,3)&&bit_is_clear(PINA,4))
+ 476:	cb 99       	sbic	0x19, 3	; 25
+ 478:	09 c0       	rjmp	.+18     	; 0x48c <__LOCK_REGION_LENGTH__+0x8c>
+ 47a:	cc 99       	sbic	0x19, 4	; 25
+ 47c:	07 c0       	rjmp	.+14     	; 0x48c <__LOCK_REGION_LENGTH__+0x8c>
+	{
+		forward();
+ 47e:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 482:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 486:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 48a:	34 ce       	rjmp	.-920    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,4)&&bit_is_clear(PINA,5))
+ 48c:	cc 99       	sbic	0x19, 4	; 25
+ 48e:	09 c0       	rjmp	.+18     	; 0x4a2 <__LOCK_REGION_LENGTH__+0xa2>
+ 490:	cd 99       	sbic	0x19, 5	; 25
+ 492:	07 c0       	rjmp	.+14     	; 0x4a2 <__LOCK_REGION_LENGTH__+0xa2>
+	{
+		forward();
+ 494:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 498:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 49c:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 4a0:	29 ce       	rjmp	.-942    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,1)&&bit_is_clear(PINA,2))
+ 4a2:	c9 99       	sbic	0x19, 1	; 25
+ 4a4:	09 c0       	rjmp	.+18     	; 0x4b8 <__LOCK_REGION_LENGTH__+0xb8>
+ 4a6:	ca 99       	sbic	0x19, 2	; 25
+ 4a8:	07 c0       	rjmp	.+14     	; 0x4b8 <__LOCK_REGION_LENGTH__+0xb8>
+	{
+		left();
+ 4aa:	0e 94 5c 00 	call	0xb8	; 0xb8 <left>
+		a=2;
+ 4ae:	b0 92 61 00 	sts	0x0061, r11	; 0x800061 <_edata+0x1>
+ 4b2:	a0 92 60 00 	sts	0x0060, r10	; 0x800060 <_edata>
+ 4b6:	1e ce       	rjmp	.-964    	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,0)&&bit_is_clear(PINA,1))
+ 4b8:	c8 99       	sbic	0x19, 0	; 25
+ 4ba:	09 c0       	rjmp	.+18     	; 0x4ce <__LOCK_REGION_LENGTH__+0xce>
+ 4bc:	c9 99       	sbic	0x19, 1	; 25
+ 4be:	07 c0       	rjmp	.+14     	; 0x4ce <__LOCK_REGION_LENGTH__+0xce>
+	{
+		hard_left();
+ 4c0:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+		a=4;
+ 4c4:	90 92 61 00 	sts	0x0061, r9	; 0x800061 <_edata+0x1>
+ 4c8:	80 92 60 00 	sts	0x0060, r8	; 0x800060 <_edata>
+ 4cc:	13 ce       	rjmp	.-986    	; 0xf4 <main+0x32>
+
+
+
+	//code for 1
+
+	else if(bit_is_clear(PINA,6))
+ 4ce:	ce 99       	sbic	0x19, 6	; 25
+ 4d0:	07 c0       	rjmp	.+14     	; 0x4e0 <__LOCK_REGION_LENGTH__+0xe0>
+	{
+		hard_right();
+ 4d2:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+		a=5;
+ 4d6:	10 93 61 00 	sts	0x0061, r17	; 0x800061 <_edata+0x1>
+ 4da:	00 93 60 00 	sts	0x0060, r16	; 0x800060 <_edata>
+ 4de:	0a ce       	rjmp	.-1004   	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,7))
+ 4e0:	cf 99       	sbic	0x19, 7	; 25
+ 4e2:	07 c0       	rjmp	.+14     	; 0x4f2 <__LOCK_REGION_LENGTH__+0xf2>
+	{
+		hard_right();
+ 4e4:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+		a=5;
+ 4e8:	10 93 61 00 	sts	0x0061, r17	; 0x800061 <_edata+0x1>
+ 4ec:	00 93 60 00 	sts	0x0060, r16	; 0x800060 <_edata>
+ 4f0:	01 ce       	rjmp	.-1022   	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,5))
+ 4f2:	cd 99       	sbic	0x19, 5	; 25
+ 4f4:	07 c0       	rjmp	.+14     	; 0x504 <__LOCK_REGION_LENGTH__+0x104>
+	{
+		right();
+ 4f6:	0e 94 57 00 	call	0xae	; 0xae <right>
+		a=3;
+ 4fa:	d0 92 61 00 	sts	0x0061, r13	; 0x800061 <_edata+0x1>
+ 4fe:	c0 92 60 00 	sts	0x0060, r12	; 0x800060 <_edata>
+ 502:	f8 cd       	rjmp	.-1040   	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,3))
+ 504:	cb 99       	sbic	0x19, 3	; 25
+ 506:	07 c0       	rjmp	.+14     	; 0x516 <__LOCK_REGION_LENGTH__+0x116>
+	{
+		forward();
+ 508:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 50c:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 510:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 514:	ef cd       	rjmp	.-1058   	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,4))
+ 516:	cc 99       	sbic	0x19, 4	; 25
+ 518:	07 c0       	rjmp	.+14     	; 0x528 <__LOCK_REGION_LENGTH__+0x128>
+	{
+		forward();
+ 51a:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+		a=1;
+ 51e:	f0 92 61 00 	sts	0x0061, r15	; 0x800061 <_edata+0x1>
+ 522:	e0 92 60 00 	sts	0x0060, r14	; 0x800060 <_edata>
+ 526:	e6 cd       	rjmp	.-1076   	; 0xf4 <main+0x32>
+	}
+
+	else if(bit_is_clear(PINA,2))
+ 528:	ca 99       	sbic	0x19, 2	; 25
+ 52a:	07 c0       	rjmp	.+14     	; 0x53a <__LOCK_REGION_LENGTH__+0x13a>
+	{
+		left();
+ 52c:	0e 94 5c 00 	call	0xb8	; 0xb8 <left>
+		a=2;
+ 530:	b0 92 61 00 	sts	0x0061, r11	; 0x800061 <_edata+0x1>
+ 534:	a0 92 60 00 	sts	0x0060, r10	; 0x800060 <_edata>
+ 538:	dd cd       	rjmp	.-1094   	; 0xf4 <main+0x32>
+	}
+
+
+	else if(bit_is_clear(PINA,0))
+ 53a:	c8 99       	sbic	0x19, 0	; 25
+ 53c:	07 c0       	rjmp	.+14     	; 0x54c <__LOCK_REGION_LENGTH__+0x14c>
+	{
+		hard_left();
+ 53e:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+		a=4;
+ 542:	90 92 61 00 	sts	0x0061, r9	; 0x800061 <_edata+0x1>
+ 546:	80 92 60 00 	sts	0x0060, r8	; 0x800060 <_edata>
+ 54a:	d4 cd       	rjmp	.-1112   	; 0xf4 <main+0x32>
+	}
+	
+	else if(bit_is_set(PINA,0)&&bit_is_set(PINA,1)&&bit_is_set(PINA,2)&&bit_is_set(PINA,3)&&bit_is_set(PINA,4)&&bit_is_set(PINA,5)&&bit_is_set(PINA,6)&&bit_is_set(PINA,7))
+ 54c:	c8 9b       	sbis	0x19, 0	; 25
+ 54e:	3e c0       	rjmp	.+124    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 550:	c9 9b       	sbis	0x19, 1	; 25
+ 552:	3c c0       	rjmp	.+120    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 554:	ca 9b       	sbis	0x19, 2	; 25
+ 556:	3a c0       	rjmp	.+116    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 558:	cb 9b       	sbis	0x19, 3	; 25
+ 55a:	38 c0       	rjmp	.+112    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 55c:	cc 9b       	sbis	0x19, 4	; 25
+ 55e:	36 c0       	rjmp	.+108    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 560:	cd 9b       	sbis	0x19, 5	; 25
+ 562:	34 c0       	rjmp	.+104    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 564:	ce 9b       	sbis	0x19, 6	; 25
+ 566:	32 c0       	rjmp	.+100    	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+ 568:	cf 9b       	sbis	0x19, 7	; 25
+ 56a:	30 c0       	rjmp	.+96     	; 0x5cc <__LOCK_REGION_LENGTH__+0x1cc>
+	{
+		if((a==2)|(a==4))
+ 56c:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <_edata>
+ 570:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <_edata+0x1>
+ 574:	8c 2f       	mov	r24, r28
+ 576:	22 30       	cpi	r18, 0x02	; 2
+ 578:	31 05       	cpc	r19, r1
+ 57a:	09 f0       	breq	.+2      	; 0x57e <__LOCK_REGION_LENGTH__+0x17e>
+ 57c:	8d 2f       	mov	r24, r29
+ 57e:	81 11       	cpse	r24, r1
+ 580:	06 c0       	rjmp	.+12     	; 0x58e <__LOCK_REGION_LENGTH__+0x18e>
+ 582:	8c 2f       	mov	r24, r28
+ 584:	24 30       	cpi	r18, 0x04	; 4
+ 586:	31 05       	cpc	r19, r1
+ 588:	09 f0       	breq	.+2      	; 0x58c <__LOCK_REGION_LENGTH__+0x18c>
+ 58a:	8d 2f       	mov	r24, r29
+ 58c:	81 11       	cpse	r24, r1
+		{
+			right();
+ 58e:	0e 94 57 00 	call	0xae	; 0xae <right>
+		}
+		if((a==3)|(a==5))
+ 592:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <_edata>
+ 596:	30 91 61 00 	lds	r19, 0x0061	; 0x800061 <_edata+0x1>
+ 59a:	8c 2f       	mov	r24, r28
+ 59c:	23 30       	cpi	r18, 0x03	; 3
+ 59e:	31 05       	cpc	r19, r1
+ 5a0:	09 f0       	breq	.+2      	; 0x5a4 <__LOCK_REGION_LENGTH__+0x1a4>
+ 5a2:	8d 2f       	mov	r24, r29
+ 5a4:	81 11       	cpse	r24, r1
+ 5a6:	06 c0       	rjmp	.+12     	; 0x5b4 <__LOCK_REGION_LENGTH__+0x1b4>
+ 5a8:	8c 2f       	mov	r24, r28
+ 5aa:	25 30       	cpi	r18, 0x05	; 5
+ 5ac:	31 05       	cpc	r19, r1
+ 5ae:	09 f0       	breq	.+2      	; 0x5b2 <__LOCK_REGION_LENGTH__+0x1b2>
+ 5b0:	8d 2f       	mov	r24, r29
+ 5b2:	81 11       	cpse	r24, r1
+		{
+			left();
+ 5b4:	0e 94 5c 00 	call	0xb8	; 0xb8 <left>
+		}
+		 if(a==1)
+ 5b8:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+ 5bc:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <_edata+0x1>
+ 5c0:	01 97       	sbiw	r24, 0x01	; 1
+ 5c2:	09 f0       	breq	.+2      	; 0x5c6 <__LOCK_REGION_LENGTH__+0x1c6>
+ 5c4:	97 cd       	rjmp	.-1234   	; 0xf4 <main+0x32>
+		{
+			forward();
+ 5c6:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 5ca:	94 cd       	rjmp	.-1240   	; 0xf4 <main+0x32>
+
+
+	else
+	{
+
+		if(a==1)
+ 5cc:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <_edata>
+ 5d0:	90 91 61 00 	lds	r25, 0x0061	; 0x800061 <_edata+0x1>
+ 5d4:	81 30       	cpi	r24, 0x01	; 1
+ 5d6:	91 05       	cpc	r25, r1
+ 5d8:	19 f4       	brne	.+6      	; 0x5e0 <__LOCK_REGION_LENGTH__+0x1e0>
+		{
+			forward();
+ 5da:	0e 94 3e 00 	call	0x7c	; 0x7c <forward>
+ 5de:	8a cd       	rjmp	.-1260   	; 0xf4 <main+0x32>
+		}
+		
+		else if(a==2)
+ 5e0:	82 30       	cpi	r24, 0x02	; 2
+ 5e2:	91 05       	cpc	r25, r1
+ 5e4:	19 f4       	brne	.+6      	; 0x5ec <__LOCK_REGION_LENGTH__+0x1ec>
+		{
+			left();
+ 5e6:	0e 94 5c 00 	call	0xb8	; 0xb8 <left>
+ 5ea:	84 cd       	rjmp	.-1272   	; 0xf4 <main+0x32>
+		}
+
+		else if(a==3)
+ 5ec:	83 30       	cpi	r24, 0x03	; 3
+ 5ee:	91 05       	cpc	r25, r1
+ 5f0:	19 f4       	brne	.+6      	; 0x5f8 <__LOCK_REGION_LENGTH__+0x1f8>
+		{
+			right();
+ 5f2:	0e 94 57 00 	call	0xae	; 0xae <right>
+ 5f6:	7e cd       	rjmp	.-1284   	; 0xf4 <main+0x32>
+		}
+		
+		else if(a==4)
+ 5f8:	84 30       	cpi	r24, 0x04	; 4
+ 5fa:	91 05       	cpc	r25, r1
+ 5fc:	19 f4       	brne	.+6      	; 0x604 <__LOCK_REGION_LENGTH__+0x204>
+		{
+			hard_left();
+ 5fe:	0e 94 52 00 	call	0xa4	; 0xa4 <hard_left>
+ 602:	78 cd       	rjmp	.-1296   	; 0xf4 <main+0x32>
+		}
+
+		else if(a==5)
+ 604:	05 97       	sbiw	r24, 0x05	; 5
+ 606:	19 f4       	brne	.+6      	; 0x60e <__LOCK_REGION_LENGTH__+0x20e>
+		{
+			hard_right();
+ 608:	0e 94 4d 00 	call	0x9a	; 0x9a <hard_right>
+ 60c:	73 cd       	rjmp	.-1306   	; 0xf4 <main+0x32>
+		}
+
+		else
+		{
+			backward();
+ 60e:	0e 94 43 00 	call	0x86	; 0x86 <backward>
+ 612:	70 cd       	rjmp	.-1312   	; 0xf4 <main+0x32>
+
+00000614 <_exit>:
+ 614:	f8 94       	cli
+
+00000616 <__stop_program>:
+ 616:	ff cf       	rjmp	.-2      	; 0x616 <__stop_program>
